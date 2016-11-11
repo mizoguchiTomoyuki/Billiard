@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Billiards.cpp" />
+    <ClCompile Include="AABBCollider.cpp" />
+    <ClCompile Include="Box.cpp" />
+    <ClCompile Include="camera.cpp" />
+    <ClCompile Include="cameraFactory.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="console.cpp" />
+    <ClCompile Include="CreateConsole.cpp" />
+    <ClCompile Include="DebugWindow.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="gameObjectFactory.cpp" />
+    <ClCompile Include="GameSceneManager.cpp" />
+    <ClCompile Include="graphics.cpp" />
+    <ClCompile Include="input.cpp" />
+    <ClCompile Include="light.cpp" />
+    <ClCompile Include="lightFactory.cpp" />
+    <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="MouseExtend.cpp" />
+    <ClCompile Include="ObjectDataManager.cpp" />
+    <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="PrefabManager.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="SphereCollider.cpp" />
+    <ClCompile Include="Table.cpp" />
+    <ClCompile Include="Task.cpp" />
+    <ClCompile Include="textdx.cpp" />
+    <ClCompile Include="winmain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Ball.h" />
+    <ClInclude Include="Billiards.h" />
+    <ClInclude Include="AABBCollider.h" />
+    <ClInclude Include="Box.h" />
+    <ClInclude Include="camera.h" />
+    <ClInclude Include="cameraFactory.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="console.h" />
+    <ClInclude Include="constants.h" />
+    <ClInclude Include="Context.h" />
+    <ClInclude Include="CreateConsole.h" />
+    <ClInclude Include="DebugWindow.h" />
+    <ClInclude Include="DirectionalLight.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="gameError.h" />
+    <ClInclude Include="gameObject.h" />
+    <ClInclude Include="gameObjectFactory.h" />
+    <ClInclude Include="GameSceneManager.h" />
+    <ClInclude Include="graphics.h" />
+    <ClInclude Include="input.h" />
+    <ClInclude Include="light.h" />
+    <ClInclude Include="lightFactory.h" />
+    <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="MouseExtend.h" />
+    <ClInclude Include="ObjectDataManager.h" />
+    <ClInclude Include="PointLight.h" />
+    <ClInclude Include="PrefabManager.h" />
+    <ClInclude Include="Primitive.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="SphereCollider.h" />
+    <ClInclude Include="Table.h" />
+    <ClInclude Include="Task.h" />
+    <ClInclude Include="textdx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\ball.x" />
+    <None Include="..\Project1\Axis.x" />
+    <None Include="..\Project1\Cube2.x" />
+    <None Include="ClassDiagram.cd" />
+    <None Include="XData\primitiveCube.x" />
+    <None Include="XData\primitiveSphere.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="XData\nineball.png" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AE1BA409-7EE8-498E-9E69-849AFEAC1C91}</ProjectGuid>
+    <RootNamespace>Billiards</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3dx9.lib;d3d9.lib;winmm.lib;Xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>d3dx9.lib;d3d9.lib;winmm.lib;Xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

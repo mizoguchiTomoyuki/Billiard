@@ -18,6 +18,8 @@ void MeshRenderer::update(){
 	_mesh.position = transform->getPosition();
 	_mesh.Angle = transform->getRotation();
 	_mesh.scale = transform->getScale();
+	_mesh.ar.Angle = transform->Axis_angle;
+	_mesh.ar.Axis = transform->Axis;
 
 
 }

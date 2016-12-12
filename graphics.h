@@ -110,6 +110,11 @@ struct MeshData
 	VECTOR3		scale;
 	VECTOR3		Angle;
 	VECTOR3		position;
+	struct Axis_Rotation{
+		D3DXVECTOR3 Axis;
+		float Angle;
+	};
+	Axis_Rotation ar;
 	bool isWire;
 
 };
@@ -140,7 +145,7 @@ private:
 	D3DDISPLAYMODE pMode;
 
 	CameraData*  MainCamera;
-	HRESULT     result;   
+	HRESULT     result;
 	HWND        hwnd;
 	bool        fullscreen;
 	int         width;
@@ -263,7 +268,7 @@ public:
 	}
 	void CameraSet();
 	void LightSet();
-//=============================================================================
+	//=============================================================================
 	// EndScene()
 	//=============================================================================
 	HRESULT endScene()
@@ -301,6 +306,13 @@ public:
 	void MeshEnd(){
 
 	}
+
+	bool transformRotMatToQuaternion(
+		D3DXQUATERNION &q,
+		float m11, float m12, float m13,
+		float m21, float m22, float m23,
+		float m31, float m32, float m33
+		);
 };
 
 #endif

@@ -5,6 +5,8 @@ gameObject::gameObject(){
 	transform.position = { 0.0f, 0.0f, 0.0f };
 	transform.scale = { 1.0f, 1.0f, 1.0f };
 	transform.rotate = { 0.0f, 0.0f, 0.0f };
+	transform.Axis = { 1.0f, 0.0f, 0.0f };
+	transform.Axis_angle = 0.0f;
 	velocity = { 0.0f, 0.0f, 0.0f };
 	destroy = false;
 	_id = -1;

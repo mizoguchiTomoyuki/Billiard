@@ -138,6 +138,12 @@
     <ClCompile Include="Box.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="BallManager.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lightFactory.h">
@@ -245,6 +251,9 @@
     <ClInclude Include="Physics.h">
       <Filter>ヘッダー ファイル\System</Filter>
     </ClInclude>
+    <ClInclude Include="BallManager.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Project1\Axis.x" />
@@ -253,6 +262,15 @@
     <None Include="XData\primitiveCube.x" />
     <None Include="XData\primitiveSphere.x" />
     <None Include="ClassDiagram.cd" />
+    <None Include="XData\eight.x" />
+    <None Include="XData\five.x" />
+    <None Include="XData\four.x" />
+    <None Include="XData\nine.x" />
+    <None Include="XData\one.x" />
+    <None Include="XData\seven.x" />
+    <None Include="XData\six.x" />
+    <None Include="XData\three.x" />
+    <None Include="XData\two.x" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="XData\nineball.png">

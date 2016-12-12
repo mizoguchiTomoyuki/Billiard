@@ -20,6 +20,8 @@ struct Transform{
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 scale;
 	D3DXVECTOR3 rotate;
+	D3DXVECTOR3 Axis;
+	float Axis_angle;
 	Transform* parent;
 	D3DXVECTOR3 getPosition(){ return position; }
 	D3DXVECTOR3 getScale(){ return scale; }

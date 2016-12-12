@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="BallManager.cpp" />
     <ClCompile Include="Billiards.cpp" />
     <ClCompile Include="AABBCollider.cpp" />
     <ClCompile Include="Box.cpp" />
@@ -34,6 +35,7 @@
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="MouseExtend.cpp" />
     <ClCompile Include="ObjectDataManager.cpp" />
+    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="PrefabManager.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -45,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="BallManager.h" />
     <ClInclude Include="Billiards.h" />
     <ClInclude Include="AABBCollider.h" />
     <ClInclude Include="Box.h" />
@@ -85,8 +88,17 @@
     <None Include="..\Project1\Axis.x" />
     <None Include="..\Project1\Cube2.x" />
     <None Include="ClassDiagram.cd" />
+    <None Include="XData\eight.x" />
+    <None Include="XData\five.x" />
+    <None Include="XData\four.x" />
+    <None Include="XData\nine.x" />
+    <None Include="XData\one.x" />
     <None Include="XData\primitiveCube.x" />
     <None Include="XData\primitiveSphere.x" />
+    <None Include="XData\seven.x" />
+    <None Include="XData\six.x" />
+    <None Include="XData\three.x" />
+    <None Include="XData\two.x" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="XData\nineball.png" />

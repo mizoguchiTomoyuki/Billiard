@@ -6,10 +6,12 @@
 #include "gameObjectFactory.h"
 #include "Ball.h"
 #include "light.h"
+#include "BallManager.h"
 class Billiard : public Game
 {
 private :
 	int Ang;
+	BallManager* _bmanager;
 public:
 	Billiard();
 	virtual ~Billiard();

@@ -354,7 +354,8 @@ bool Graphics::isAdapterCompatible()
 void Graphics::drawMesh(const MeshData &meshData){
 	D3DXMATRIX World;
 	D3DXMATRIX Scale;
-	D3DXMATRIX Rot_x,Rot_y,Rot_z;
+	D3DXMATRIX Rot_x,Rot_y,Rot_z,Rot_Axis;
+	D3DXMATRIX RotMat;
 	D3DXMATRIX Offset;
 	VECTOR3 sca = meshData.scale;
 	VECTOR3 Pos = meshData.position;
@@ -363,6 +364,16 @@ void Graphics::drawMesh(const MeshData &meshData){
 	D3DXMatrixRotationX(&Rot_x, D3DXToRadian(meshData.Angle.x));
 	D3DXMatrixRotationY(&Rot_y, D3DXToRadian(meshData.Angle.y));
 	D3DXMatrixRotationZ(&Rot_z, D3DXToRadian(meshData.Angle.z));
+	D3DXMatrixMultiply(&RotMat, &RotMat, &Rot_x);
+	D3DXMatrixMultiply(&RotMat, &RotMat, &Rot_y);
+	D3DXMatrixMultiply(&RotMat, &RotMat, &Rot_z);
+	D3DXQUATERNION que;
+	transformRotMatToQuaternion(que,
+		RotMat.m[0][0], RotMat.m[0][1], RotMat.m[0][2],
+		RotMat.m[1][0], RotMat.m[1][1], RotMat.m[1][2],
+		RotMat.m[2][0], RotMat.m[2][1], RotMat.m[2][2]
+		);
+	D3DXMatrixRotationAxis(&Rot_Axis, &meshData.ar.Axis, meshData.ar.Angle);
 	D3DXMatrixTranslation(&Offset, Pos.x, Pos.y, Pos.z);
 
 	D3DXMatrixIdentity(&World);
@@ -370,6 +381,7 @@ void Graphics::drawMesh(const MeshData &meshData){
 	D3DXMatrixMultiply(&World, &World, &Rot_x);
 	D3DXMatrixMultiply(&World, &World, &Rot_y);
 	D3DXMatrixMultiply(&World, &World, &Rot_z);
+	D3DXMatrixMultiply(&World, &World, &Rot_Axis);
 //	D3DXMatrixMultiply(&World, &World, &Offset);
 	World.m[3][0] = Pos.x;
 	World.m[3][1] = Pos.y;
@@ -688,4 +700,57 @@ void Graphics::LightSet(){
 	}
 	device3d->SetRenderState(D3DRS_LIGHTING, TRUE);
 	device3d->SetRenderState(D3DRS_AMBIENT, 0x00808080);
+}
+//ˆê’UAngle‚Å‰ñ“]‚³‚¹‚Ä‚©‚ç²‰ñ“]‚ğ“ü‚ê‚Ş‚½‚ß‚ÉQuaternion‚É‚·‚é
+bool Graphics::transformRotMatToQuaternion(
+	D3DXQUATERNION &qs,
+	float m11, float m12, float m13,
+	float m21, float m22, float m23,
+	float m31, float m32, float m33
+	){
+	float elem[4];
+	elem[0] = m11 - m22 - m33 + 1.0f;
+	elem[1] = -m11 + m22 - m33 + 1.0f;
+	elem[2] = -m11 - m22+ m33 + 1.0f;
+	elem[3] = m11 + m22 + m33 + 1.0f;
+
+	unsigned biggestIndex = 0; //Å‘å‚Ì‘å‚«‚³‚Ì’l‚ğ‹‚ß‚é
+	for (int i = 1; i < 4; i++){
+		if (elem[i]>elem[biggestIndex])
+			biggestIndex = i;
+
+	}
+
+	if (elem[biggestIndex] < 0.0f)//‚±‚ê‚Íˆø”‚É–â‘è‚ª‚ ‚é‚Æ‚«‚É‚µ‚©‹N‚«‚È‚¢
+		return false;
+
+	float* q[4] = { &(qs.x), &(qs.y), &(qs.z), &(qs.w) };
+	float v = sqrtf(elem[biggestIndex])*0.5f; //“ñæ‚Ì1/2
+	*q[biggestIndex] = v;
+	float mult = 0.25f/v;
+
+	switch (biggestIndex){
+	case 0: //x‚Ì‚Æ‚«
+		*q[1] = (m12 + m21)*mult;
+		*q[2] = (m31 + m13)*mult;
+		*q[3] = (m23 - m32)*mult;
+		break;
+	case 1: //y‚Ì‚Æ‚«
+		*q[0] = (m12 + m21)*mult;
+		*q[2] = (m23 + m32)*mult;
+		*q[3] = (m31 - m13)*mult;
+		break;
+	case 2: //z‚Ì‚Æ‚«
+		*q[0] = (m31 + m13)*mult;
+		*q[1] = (m23 + m32)*mult;
+		*q[3] = (m12 - m21)*mult;
+		break;
+	case 3: //w‚Ì‚Æ‚«
+		*q[0] = (m23 - m32)*mult;
+		*q[1] = (m31 - m13)*mult;
+		*q[2] = (m12 - m21)*mult;
+		break;
+
+	}
+	return true;
 }

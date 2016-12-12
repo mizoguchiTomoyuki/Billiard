@@ -30,6 +30,15 @@ inline int SIGN(float a){ return ((a > 0) - (a < 0)); }
 
 const char PRIMITIVE_CUBE[] = "XData\\primitiveCube.x";
 const char PRIMITIVE_SPHERE[] = "XData\\primitiveSphere.x";
+const char ONEBALL_MESH[] = "XData\\one.x";
+const char TWOBALL_MESH[] = "XData\\two.x";
+const char THREEBALL_MESH[] = "XData\\three.x";
+const char FOURBALL_MESH[] = "XData\\four.x";
+const char FIVEBALL_MESH[] = "XData\\five.x";
+const char SIXBALL_MESH[] = "XData\\six.x";
+const char SEVENBALL_MESH[] = "XData\\seven.x";
+const char EIGHTBALL_MESH[] = "XData\\eight.x";
+const char NINEBALL_MESH[] = "XData\\nine.x";
 const char BALL_MESH[] = "XData\\ball.x";
 const char NINEBALL_TEXTURE[] = "XData";
 const char CUBE_MESH[] = "XData\\Cube2.x";
@@ -62,6 +71,15 @@ const enum PREFAB_MENU{
 	DIRECTIONALLIGHT = 2,
 	POINTLIGHT = 3,
 	BOX = 4,
+	BALL_1 = 5,
+	BALL_2 = 6,
+	BALL_3 = 7,
+	BALL_4 = 8,
+	BALL_5 = 9,
+	BALL_6 = 10,
+	BALL_7 = 11,
+	BALL_8 = 12,
+	BALL_9 = 13,
 	EXIT,
 };
 

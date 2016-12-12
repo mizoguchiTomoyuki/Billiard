@@ -71,10 +71,10 @@ void BallManager::GameStart(){
 	pos[1] = { 0, 0, -2 * r };			//2
 	pos[2] = { -2.0f*sqrt(3.0f)*r, 0, 0 };//3
 	pos[3] = { 0, 0, 2 * r };//4
-	pos[4] = { r, 0, -r };
-	pos[5] = { r, 0, r };
-	pos[6] = { -r, 0, -r };
-	pos[7] = { -r, 0, r };
+	pos[4] = { sqrt(3.0f)*r, 0, -r };
+	pos[5] = { sqrt(3.0f)*r, 0, r };
+	pos[6] = { -sqrt(3.0f)*r, 0, -r };
+	pos[7] = { -sqrt(3.0f)*r, 0, r };
 	pos[8] = { 0, 0, 0 };
 
 	for (int i = 0; i < 9; i++){
@@ -88,6 +88,7 @@ void BallManager::GameStart(){
 	_myball = _prefab.PrefabCreate((PREFAB_MENU)(0));
 	gameObject* obj = gameObjectFactory::Instance().GetElem(_myball);
 	obj->setPosition(mBallpos); //上の値に中心値を足してセット
+	obj->SetName("MyBall");
 
 	
 }

@@ -3,15 +3,15 @@ Ball::Ball() : gameObject(){
 	_mesh.start(this);
 	_mesh.initialize(BALL_MESH,NINEBALL_TEXTURE, graphicsNS::BLUE, { 0.2f, 0.2f, 0.2f, 1.0f });
 	transform.position = { 10.0f, 10.0f, 10.0f };
-	transform.scale = { 0.7f, 0.7f, 0.7f };
+	float radius = 0.65f;
+	transform.scale = { radius, radius, radius };
 	SetObjClassName("Ball");
 	t = 0.0f;
 	col.start(this);
-	col.setRadius(1.0f);
+	col.setRadius(radius);
 	collider = &col;
 	col.SetFreeze(false);
 	isCollide = true;
-	velocity.x = -20.00f;
 	MyPrefab = PREFAB_MENU::BALL;
 	isMove = false;
 	MoveLength =0.0f;
@@ -20,15 +20,15 @@ Ball::Ball(const char* texName) : gameObject(){
 	_mesh.start(this);
 	_mesh.initialize(texName, NINEBALL_TEXTURE, graphicsNS::BLUE, { 0.2f, 0.2f, 0.2f, 1.0f });
 	transform.position = { 10.0f, 10.0f, 10.0f };
-	transform.scale = { 0.7f, 0.7f, 0.7f };
+	float radius = 0.65f;
+	transform.scale = { radius, radius, radius };
 	SetObjClassName("Ball");
 	t = 0.0f;
 	col.start(this);
-	col.setRadius(1.0f);
+	col.setRadius(radius);
 	collider = &col;
 	col.SetFreeze(false);
 	isCollide = true;
-	velocity.x = -20.00f;
 	MyPrefab = PREFAB_MENU::BALL;
 	isMove = false;
 	MoveLength = 0.0f;
@@ -82,7 +82,7 @@ void Ball::collision(){
 void Ball::attenuation(){
 	//“®–€ŽCŒW”
 	float frameTime = GameSceneManager::Instance().GetGameptr()->getframeTime();
-	float u = 0.5f;
+	float u = 0.3f;
 	float F = -9.8f*Mass*u*0.1f;//“]‚ª‚è–€ŽC‚È‚Ì‚Å‚Ü‚ ‘å‘Ì1/10‚É
 	D3DXVECTOR3 nV = {0,0,0};
 	D3DXVec3Normalize(&nV, &velocity);//•ûŒü‚ÌƒxƒNƒgƒ‹‚ð‚Æ‚é

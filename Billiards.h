@@ -11,7 +11,7 @@ class Billiard : public Game
 {
 private :
 	int Ang;
-	BallManager* _bmanager;
+	BallManager _bmanager;
 public:
 	Billiard();
 	virtual ~Billiard();
@@ -26,6 +26,7 @@ public:
 	virtual void Lightupdate();
 	virtual void gameObjectupdate();
 	virtual void gameObjectdraw();
+	virtual void ResetGame();
 };
 
 #endif

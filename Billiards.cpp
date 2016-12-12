@@ -4,11 +4,9 @@ Billiard::Billiard(){
 	GameSceneManager::Create();
 	LightFactory::Create();
 	gameObjectFactory::Create();
-	_bmanager = new BallManager();
 }
 
 Billiard::~Billiard(){
-	delete _bmanager;
 	delete ODM;
 	deleteAll();
 }
@@ -18,7 +16,7 @@ void Billiard::initialize(HWND hwnd){
 	GameSceneManager::Instance().SetGamePtr(this);
 	ODM = new ObjectDataManager();
 	ODM->DataLoad();
-	_bmanager->GameStart();
+	_bmanager.GameStart();
 	Ang = 0;
 	//graphics->SetMainCamera(_cam);
 	return;
@@ -26,7 +24,7 @@ void Billiard::initialize(HWND hwnd){
 }
 
 void Billiard::update(){
-	_bmanager->update();
+	_bmanager.update();
 	Lightupdate();
 	gameObjectupdate();
 	gameObjectFactory::Instance().Optimize();
@@ -111,5 +109,19 @@ void Billiard::deleteAll(){
 	gameObjectFactory::Instance().ReleaseAll();
 	gameObjectFactory::Instance().Destroy();
 	releaseAll(); //すべてのグラフィックスアイテムについてonLostDevice()を呼び出す
+
+}
+//全部消して作り直す
+void Billiard::ResetGame(){
+	LightFactory::Instance().ReleaseAll();
+	LightFactory::Instance().Destroy();
+	gameObjectFactory::Instance().ReleaseAll();
+	gameObjectFactory::Instance().Destroy();
+
+	LightFactory::Create();
+	gameObjectFactory::Create();
+	ODM = new ObjectDataManager();
+	ODM->DataLoad();
+	_bmanager.GameStart();
 
 }

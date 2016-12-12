@@ -17,6 +17,9 @@ gameObject::gameObject(){
 	MyPrefab = PREFAB_MENU::EXIT;
 	table_id = -1;
 	isCollide = false;
+	Freedata_1 = 0;
+	Freedata_2 = 0;
+	Freedata_3 = 0;
 }
 
 void gameObject::recordupdate(){
@@ -107,6 +110,22 @@ std::vector<IndexString> gameObject::ConsoleInformation(){
 	str.indexNumber = 11;
 	value.push_back(str);
 	
+
+	str.i = gameObjectNS::TYPEINDEX::FLOAT;
+	str.s = "Free 1 :" + std::to_string(Freedata_1);
+	str.indexNumber = 12;
+	value.push_back(str);
+
+	str.i = gameObjectNS::TYPEINDEX::FLOAT;
+	str.s = "Free 2 :" + std::to_string(Freedata_2);
+	str.indexNumber = 13;
+	value.push_back(str);
+
+	str.i = gameObjectNS::TYPEINDEX::FLOAT;
+	str.s = "Free 3 :" + std::to_string(Freedata_3);
+	str.indexNumber = 14;
+	value.push_back(str);
+
 
 	return value;
 

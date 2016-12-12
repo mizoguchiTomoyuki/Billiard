@@ -45,6 +45,9 @@ protected:
 	bool initialized;
 	std::string  command;           // command from console
 	ObjectDataManager* ODM;
+	bool Slowmotion; //コマ送りモードを開始する
+	bool Trigger; //コマ送り処理を進める
+	bool preinput;
 public:
 	//コンストラクタ
 	Game();
@@ -119,6 +122,7 @@ public:
 	ObjectDataManager* getODM(){ return ODM; }
 
 	void SaveODM();
+	virtual void ResetGame() = 0;
 };
 #include "ObjectDataManager.h"
 #endif

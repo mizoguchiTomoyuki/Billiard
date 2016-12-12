@@ -55,6 +55,7 @@ protected:
 	PREFAB_MENU MyPrefab;
 	int table_id;
 public:
+	float Freedata_1, Freedata_2, Freedata_3; //Debug用のデータ類
 	gameObject();
 	virtual ~gameObject();
 	virtual void update(){};

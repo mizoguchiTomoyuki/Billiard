@@ -14,6 +14,8 @@ Game::Game()
 	fps = 100;
 	fpsOn = false;
 	initialized = false;
+	Slowmotion = false;
+	preinput = false;
 }
 
 //==========================================
@@ -238,10 +240,39 @@ void Game::run(HWND hwnd)
 	//update(),ai(),collisions()は純粋仮想関数
 	if (!paused)//一時停止中ではない場合
 	{
+
+		if (Trigger){ //TriggerがOnのときのみ
+
+
 		update();	//すべてのゲームアイテムを更新
 		ai(); //人工知能
 		collisions();	//衝突を処理
 		input->vibrateControllers(frameTime);//コントローラーの振動を処理
+
+		}
+		if (Slowmotion){
+			Trigger = false;
+
+
+			if (input->isKeyDown(DOWN_KEY)){
+
+				Trigger = true;
+			}
+			if (input->isKeyDown(UP_KEY)){
+				if (!preinput){
+					Trigger = true;
+					preinput = true;
+				}
+			}
+			else{
+
+				preinput = false;
+			}
+		}
+		else{
+			Trigger = true;
+
+		}
 	}
 	renderGame();	//すべてのゲームアイテムを描画
 	input->readControllers();
@@ -315,6 +346,8 @@ void Game::consoleCommand()
 			console->print("fps - toggle display of frames per second");
 			console->print("create - Create window activate.");
 			console->print("save - Save object database.");
+			console->print("slow - コマ送り.");
+			console->print("reset - Reset GameScene.");
 			return;
 		}
 		if (command == "fps")
@@ -335,6 +368,24 @@ void Game::consoleCommand()
 		{
 			SaveODM();
 			console->print("Save Complete.");
+		}
+
+		if (command == "slow") //objectDataを保存
+		{
+			Slowmotion = !Slowmotion;
+			if (Slowmotion){
+				console->print("Slowmotion Start");
+			}
+			else{
+				console->print("Slowmotion End");
+
+			}
+		}
+		if (command == "reset") //objectDataを保存
+		{
+			ResetGame();
+			console->print("Reset");
+			
 		}
 	}
 

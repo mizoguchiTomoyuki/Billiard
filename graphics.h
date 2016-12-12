@@ -313,6 +313,7 @@ public:
 		float m21, float m22, float m23,
 		float m31, float m32, float m33
 		);
+	void getScreenPosition(D3DXVECTOR3 pos, D3DXVECTOR3 &screenpos);
 };
 
 #endif

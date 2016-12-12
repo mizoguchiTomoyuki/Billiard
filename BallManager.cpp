@@ -95,18 +95,53 @@ void BallManager::GameStart(){
 
 //ボールを打ったかどうかの判定ボールを打ったならばtrueを返す
 bool BallManager::ShootBall(){
+	Input* in = GameSceneManager::Instance().GetGameptr()->getInput();
 
+	if (in->getMouseRButton()){
+		gameObject* ball = gameObjectFactory::Instance().GetElem(_myball);
+		shootvec = { shootvec.x, 0, shootvec.z };
+		ball->setDeltaV(shootvec*20.0f);
+		return true;
+
+	}
 
 	return false;
 }
 //ボールがすべて止まった時にtrue
 bool BallManager::waitBall(){
+	bool ret = true;
+	for (int i = 0; i < 9; i++){
+		Ball* ball = (Ball*)gameObjectFactory::Instance().GetElem(balls[i]);
+		if (ball->isMoving()){
 
-	return false;
+			ret = false;
+		}
+		
+
+	}
+		Ball* ball = (Ball*)gameObjectFactory::Instance().GetElem(_myball);
+		if (ball->isMoving()){
+
+			ret = false;
+		}
+	return ret;
 
 }
 //ボールの狙いを定める
 bool BallManager::TargetBall(){
+	Input* in = GameSceneManager::Instance().GetGameptr()->getInput();
+	gameObject* ball = gameObjectFactory::Instance().GetElem(_myball);
+	D3DXVECTOR3 spos; //スクリーン上の位置
+	GameSceneManager::Instance().GetGameptr()->getGraphics()->getScreenPosition(ball->getTransform()->getPosition(), spos);
+	spos = { spos.x, 0, spos.y };
+	
+	D3DXVECTOR3 mPos = { (float)in->getMouseX(), 0, (float)in->getMouseY() };
+	if (in->getMouseLButton()){
+		shootvec = mPos - spos;
+		D3DXVec3Normalize(&shootvec, &shootvec);
+		return true;
+
+	}
 
 
 	return false;

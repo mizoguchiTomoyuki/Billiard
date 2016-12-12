@@ -24,6 +24,7 @@ protected:
 	ELEMID balls[9]; //九つの落とすべきボール
 	ELEMID _myball; //自分の持ち球
 	PrefabManager _prefab; //ボールの生成などを行わせる
+	D3DXVECTOR3 shootvec;//打つ方向
 public:
 	BallManager();
 	~BallManager();

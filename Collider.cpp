@@ -49,9 +49,9 @@ void Collider::bounce(gameObject &obj, D3DXVECTOR3 &collisionVector, D3DXVECTOR3
 		if (!Freeze)
 			_this->setPosition(Coltransform.getPosition()-Sinking);
 
-		_this->Freedata_1 = Sinking.x;
-		_this->Freedata_2 = Sinking.y;
-		_this->Freedata_3 = Sinking.z;
+	//	_this->Freedata_1 = Sinking.x;
+	//	_this->Freedata_2 = Sinking.y;
+	//	_this->Freedata_3 = Sinking.z;
 	}
 	else{
 	//	D3DXVECTOR3 dv = _this->getDeltaV();
@@ -59,7 +59,7 @@ void Collider::bounce(gameObject &obj, D3DXVECTOR3 &collisionVector, D3DXVECTOR3
 	//	_this->setDeltaV(dv);
 		D3DXVECTOR3 V_dash = -((massRatio*(1.0f + e) * cUVdotVdiff) * cUV);
 		_this->setDeltaV(V_dash);//次回のupdate時に速度に足す。今更新するとcolide処理の他の物体の計算に影響を及ぼす
-		obj.setDeltaV(-V_dash);//相手にも加速度を
+		
 	}
 
 

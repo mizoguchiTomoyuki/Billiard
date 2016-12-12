@@ -97,6 +97,9 @@ void Graphics::initialize(HWND hw, int w, int h, bool full)
 	device3d->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
 	device3d->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	device3d->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	D3DVIEWPORT9 viewData = { 0, 0, width, height, 0.0f, 1.0f };
+	device3d->SetViewport(&viewData);
+
 }
 
 //=============================================================================
@@ -753,4 +756,55 @@ bool Graphics::transformRotMatToQuaternion(
 
 	}
 	return true;
+}
+
+void Graphics::getScreenPosition(D3DXVECTOR3 pos, D3DXVECTOR3 &screenpos){
+
+	D3DXMATRIX View;
+	D3DXMATRIX Pers;
+	MainCamera = CameraFactory::Instance().GetMainCamera(); //MainƒJƒƒ‰‚Íˆ—‚²‚Æ‚ÉŽæ“¾?
+	if (MainCamera == nullptr)
+		return;
+	if (MainCamera->initialized){
+		D3DXMatrixLookAtLH(
+			&View,
+			&MainCamera->position,
+			&MainCamera->LookAt,
+			&MainCamera->Up
+			);
+		if (!MainCamera->orthographics){
+			D3DXMatrixPerspectiveFovLH(
+				&Pers,
+				MainCamera->fovY,
+				MainCamera->aspect,
+				MainCamera->nearClip,
+				MainCamera->farClip
+				);
+		}
+	}
+	float width = GAME_WIDTH;
+	float height = GAME_HEIGHT;
+
+	D3DXMATRIX POS = {	pos.x,0,0,0,
+						pos.y, 0, 0, 0,
+						pos.z, 0, 0, 0,
+						1.0, 0, 0, 0
+	};
+	/*D3DXMATRIX Viewport = { width,	 0,				0,	0,
+							0,			-height,	0, 0,
+							0,			 0,				1, 0,
+							width / 2,	 height / 2,	0, 1 };*/
+	D3DXMATRIX mat;
+	D3DXMatrixIdentity(&mat);
+	D3DXMATRIX scpos;
+	D3DVIEWPORT9 viewData = { 0, 0, width, height, 0.0f, 1.0f };
+
+	D3DXVec3Project(&screenpos, &pos,&viewData, &Pers, &View,&mat);
+
+/*	D3DXMatrixMultiply(&scpos, &POS, &View);
+	D3DXMatrixMultiply(&scpos, &scpos, &Pers);
+	D3DXMatrixMultiply(&scpos, &scpos, &Viewport);
+	screenpos = { scpos._11 + width / 2, scpos._21 , scpos._31 +height/2 };
+	*/
+
 }

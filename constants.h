@@ -44,8 +44,8 @@ const char NINEBALL_TEXTURE[] = "XData";
 const char CUBE_MESH[] = "XData\\Cube2.x";
 
 const bool FULLSCREEN = false;              // windowed or fullscreen
-const UINT  GAME_WIDTH = 640;              // width of game in pixels
-const UINT  GAME_HEIGHT = 480;              // height of game in pixels
+const UINT  GAME_WIDTH = 1280;              // width of game in pixels
+const UINT  GAME_HEIGHT = 960;              // height of game in pixels
 
 const double PI = 3.14159265;
 const float FRAME_RATE = 200.0f;               // the target frame rate (frames/sec)

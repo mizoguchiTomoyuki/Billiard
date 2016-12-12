@@ -22,6 +22,8 @@ Ball::Ball(const char* texName) : gameObject(){
 	transform.position = { 10.0f, 10.0f, 10.0f };
 	float radius = 0.65f;
 	transform.scale = { radius, radius, radius };
+	transform.Axis = { 1, 0, 0 };
+	transform.Axis_angle = -(PI/2.0f);
 	SetObjClassName("Ball");
 	t = 0.0f;
 	col.start(this);

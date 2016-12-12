@@ -70,6 +70,7 @@
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="MouseExtend.h" />
     <ClInclude Include="ObjectDataManager.h" />
+    <ClInclude Include="Physics.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="PrefabManager.h" />
     <ClInclude Include="Primitive.h" />

@@ -90,8 +90,10 @@ bool AABBCollider::ToSphere(gameObject &obj, D3DXVECTOR3 &collisionVector){
 		D3DXVECTOR3 Sinking = { (abs(x)>0)*(MinLength - spb->getRadius()),
 			(abs(y)>0)*(MinLength - spb->getRadius()),
 			(abs(z)>0)*(MinLength - spb->getRadius()), };
-		collisionVector = { collisionVector.x*V_e.x, collisionVector.y*V_e.y, collisionVector.z*V_e.z };
-		bounce(obj, Sinking);
+		//collisionVector = { collisionVector.x*V_e.x, collisionVector.y*V_e.y, collisionVector.z*V_e.z };
+		D3DXVECTOR3 ref;
+		D3DXVec3Normalize(&ref, &Sinking);
+		bounce(obj,collisionVector, Sinking,ref);
 		return true;
 	}
 	return false;

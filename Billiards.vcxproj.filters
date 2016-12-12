@@ -242,6 +242,9 @@
     <ClInclude Include="Box.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Project1\Axis.x" />

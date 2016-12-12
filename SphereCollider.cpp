@@ -56,8 +56,11 @@ bool SphereCollider::collide(gameObject &obj, D3DXVECTOR3 &collisionVector){
 
 bool SphereCollider::ToSphere(gameObject &obj, D3DXVECTOR3 &collisionVector){
 
-	
+
 	D3DXVECTOR3 pos_B = obj.getPosition(); //とりあえず無理やりAABBの実装に合わせて変更
+
+
+
 	SphereCollider* spb = (SphereCollider*)obj.getCollider();
 	float radB = spb->getRadius();
 	float xdist = pow(sphe.p.x - pos_B.x, 2);
@@ -66,13 +69,27 @@ bool SphereCollider::ToSphere(gameObject &obj, D3DXVECTOR3 &collisionVector){
 
 	float Distance = xdist + ydist + zdist;
 	float sumRadius = pow((sphe.r + radB),2);
+	//衝突の判定
 	if (Distance <= sumRadius){
 		//collisionVector = obj.getPosition() - _this->getPosition();
 		//bounceOn(obj, collisionVector);
-		D3DXVECTOR3 cV = obj.getPosition() - Coltransform.getPosition();
-		D3DXVECTOR3 Sinking = { cV.x - getRadius(), 0.0f, cV.z - getRadius() };
-		collisionVector = cV;
-		bounce(obj, Sinking);
+
+		//まず球同士の接触面方向のベクトルを求める(方向は自分から相手へ)
+		D3DXVECTOR3 cV = Coltransform.getPosition() - obj.getPosition();
+		D3DXVECTOR3 cUV; //衝突平面方向の単位ベクトル(collisionVectorは各collide関数から常に帰ってきている)
+		D3DXVec3Normalize(&cUV, &cV); //ぶつかった方向の単位ベクトル
+		float Length = D3DXVec3Length(&cV);
+		SphereCollider* obj_sphe = (SphereCollider*)obj.getCollider();
+		float Sink = (Length - getRadius())-obj_sphe->getRadius(); //ぶつかってる者同士の半径と中心間距離から沈んだ距離を出す
+		D3DXVECTOR3 Sinking = cUV*Sink;//cUVは相手の方に向かう方向
+	//	D3DXVECTOR3 Sinking = radV - cV;
+		if (Length == getRadius()){
+
+
+		}
+		//radV = cVのとき衝突中にも関わらずSinkingは0になる
+		//collisionVector = cV;
+		bounce(obj, collisionVector,Sinking,cUV);//そのまま速度を与えることにする
 		return true;
 	}
 	return false;
@@ -98,24 +115,27 @@ bool SphereCollider::ToAABB(gameObject &obj, D3DXVECTOR3 &collisionVector){
 	if (MinLength <= getRadius()){
 
 	//	bounceOn(obj, collisionVector);
-		D3DXVECTOR3 cV = (obj.getPosition() - Coltransform.getPosition());
+		D3DXVECTOR3 cV = (Coltransform.getPosition() - obj.getPosition());
 		Point cvP;
 		cvP = cV;
-		float Vecx = cvP.dot(Float3(1.0f, 0, 0));
+		//AABBの中心と自身の距離をとっている
+		float Vecx = cvP.dot(Float3(1.0f, 0, 0));//物体間の距離のxの+方向の射影(成分の大きさ)をとっている
 		float Vecy = cvP.dot(Float3(0, 1.0f, 0));
 		float Vecz = cvP.dot(Float3(0, 0, 1.0f));
-		float x = ((Vecx > aabb.hl.x) + (Vecx < -aabb.hl.x))*Vecx;
-		float y = ((Vecy > aabb.hl.y) + (Vecy < -aabb.hl.y))*Vecy;
+		float x = ((Vecx > aabb.hl.x) + (Vecx < -aabb.hl.x))*Vecx; //AABBよりどちらかの外側にいる場合のみ0にならない
+		float y = ((Vecy > aabb.hl.y) + (Vecy < -aabb.hl.y))*Vecy; //また外側にいる場合はAABBの面への方向を返す
 		float z = ((Vecz > aabb.hl.z) + (Vecz < -aabb.hl.z))*Vecz;
-		D3DXVECTOR3 V = { x, y, z };
+		D3DXVECTOR3 V = { x, y, z };//AABBの面にむかうベクトル
 		//D3DXVECTOR3 V_e = { (abs(x)>0)*SIGN(x)*1.0f, (abs(y)>0)*SIGN(y)*1.0f, (abs(z)>0)*SIGN(z)*1.0f }; //値がある部分を1で
 		D3DXVECTOR3 V_e = { (abs(x)>0)*(-1.0f), (abs(y)>0)*(-1.0f), (abs(z)>0)*(-1.0f) }; //反射部分の値を反転させる
 		float Sink = MinLength - getRadius();
-		D3DXVECTOR3 Sinking = { SIGN(x)*(V_e.x)*(Sink),
-			SIGN(y)*(V_e.y)*(Sink),
-			SIGN(z)*(V_e.z)*(Sink), };
-		collisionVector = { collisionVector.x*V_e.x, collisionVector.y*V_e.y, collisionVector.z*V_e.z };
-		bounce(obj, Sinking);
+		D3DXVECTOR3 ref;
+		D3DXVec3Normalize(&ref, &V);
+		D3DXVECTOR3 Sinking = { (ref.x)*abs(Sink),
+			(ref.y)*abs(Sink),
+			(ref.z)*abs(Sink) };
+		//collisionVector = { collisionVector.x*V_e.x, collisionVector.y*V_e.y, collisionVector.z*V_e.z };
+		bounce(obj, collisionVector,Sinking,ref);
 		return true;
 	}
 	return false;

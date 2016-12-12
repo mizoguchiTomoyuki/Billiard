@@ -34,7 +34,7 @@ public:
 	void SetEnable(bool b){ enable = b; }
 	bool getEnable(){ return enable; }
 	ColliderNS::COL_TYPE getType(){ return _type; }
-	void bounce(gameObject &obj,D3DXVECTOR3 &collisionVector);
+	void bounce(gameObject &obj, D3DXVECTOR3 &collisionVector, D3DXVECTOR3 Sinking, D3DXVECTOR3 ref);
 	void bounceOn(gameObject &obj, D3DXVECTOR3 &collisionVector);
 	void SetFreeze(bool b){ Freeze = b; }
 

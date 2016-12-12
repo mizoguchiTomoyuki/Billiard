@@ -10,7 +10,7 @@ Ball::Ball() : gameObject(){
 	collider = &col;
 	col.SetFreeze(false);
 	isCollide = true;
-	velocity.x = 3.0f;
+	velocity.x = -3.00f;
 	MyPrefab = PREFAB_MENU::BALL;
 }
 

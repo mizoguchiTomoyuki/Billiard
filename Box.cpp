@@ -12,7 +12,9 @@ Box::Box() : gameObject(){
 	collider = &col;
 	isCollide = true;
 	MyPrefab = PREFAB_MENU::BOX; 
-	Mass = 10;
+	Mass = 100000;
+	deltaV = { 0, 0, 0 };
+	velocity = { 0, 0, 0 };
 }
 
 Box::~Box(){

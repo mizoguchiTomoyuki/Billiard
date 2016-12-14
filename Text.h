@@ -12,17 +12,17 @@ namespace textNS{
 		UINT right;
 	};
 	const int FONT_BORDER =1; //各文字の周囲の枠幅のサイズ,透明な枠2ピクセル分グリッドの枠線分で3ピクセル
-	const int FONT_WIDTH = 63; //文字幅
-	const int FONT_HEIGHT = 61;// 文字の高さ
+	const int FONT_WIDTH = 31; //文字幅
+	const int FONT_HEIGHT = 50;// 文字の高さ
 	const int GRID_WIDTH = FONT_WIDTH + FONT_BORDER; //文字一つ分のグリッドの横幅
 	const int GRID_HEIGHT = FONT_HEIGHT + FONT_BORDER; //文字一つ分のグリッドの高さ幅
 	const int COLUMNS = 4;	//フォント画像内の列数
-	const int ROWS = 11; //フォント画像内の行数
+	const int ROWS = 5; //フォント画像内の行数
 	const int FRAMES = 1; //各文字のアニメーションのフレーム数(1 = アニメーションなし)
 	const double ANIM_DELAY = 0.0; //アニメーションフレーム間の時間間隔
 	const int MAX_FONT_HEIGHT = 1000; //フォントの最大の高さ
-	const int MIN_CHAR = 0x002F; //左上隅に位置する文字の文字コード。(' ')ここからMAX_CHARまで
-	const int MAX_CHAR = 0x005A; //左右隅に位置する文字の文字コード
+	const int MIN_CHAR = 0x0029; //左上隅に位置する文字の文字コード。(' ')ここからMAX_CHARまで
+	const int MAX_CHAR = 0x0039; //左右隅に位置する文字の文字コード
 	const int PROPORTIONAL_SPACING = 5; //プロポーショナルスペースで表示する文字間のスペースの広さ
 	const int TAB_SIZE = 8; //文字位置によってあらわされるタブ位置のサイズ
 	const char UNDERLINE = '_';	//下線を表示する際に使われる文字ASCII値は0x5F(これはテクスチャのグリッドと対応)

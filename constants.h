@@ -31,7 +31,7 @@ inline int SIGN(float a){ return ((a > 0) - (a < 0)); }
 
 const char ARROW_IMAGE[] = "pictures\\arrow.png";
 const char SHADOW_IMAGE[] = "pictures\\shadow.png"; 
-const char FONT_IMAGE[] = "pictures\\font6462.png"; 
+const char FONT_IMAGE[] = "pictures\\font3251.png"; 
 const char PRIMITIVE_CUBE[] = "XData\\primitiveCube.x";
 const char BILLTABLE_CUBE[] = "XData\\billiardtable.x";
 const char BILLMAT_CUBE[] = "XData\\billiardmat.x";

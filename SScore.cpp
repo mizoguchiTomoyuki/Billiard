@@ -27,8 +27,11 @@ void SScore::update(){
 }
 
 void SScore::draw(){
+	_text.setProportional(true);
+	_text.setProportionalSpacing(20);
 	_text.setFontColor(graphicsNS::WHITE);
 	_text.setBackColor(TRANSCOLOR);
+	str = "-21";
 	_text.print(str,0,0);
 }
 void SScore::ai(){

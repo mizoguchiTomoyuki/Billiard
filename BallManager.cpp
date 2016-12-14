@@ -21,7 +21,10 @@ bool BallManager::initialize(){
 	arrow->isVisible(true);
 
 	score = new SScore();
-	arrow->isVisible(true);
+	score->initialize();
+	score->setPosition({ 0, 0 });
+	score->setScale(1.0f);
+	score->isVisible(true);
 	return true;
 
 }

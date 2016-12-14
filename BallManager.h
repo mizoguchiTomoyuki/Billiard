@@ -1,6 +1,8 @@
 #ifndef _BALLMANAGER_H
 #define _BALLMANAGER_H
 #include "PrefabManager.h"
+#include "SArrow.h"
+#include "SScore.h"
 //ボールの管理を行うクラスボールの生成、手玉の管理などを行う
 //ゲームのルール部分を担当
 namespace BMNS{
@@ -25,6 +27,8 @@ protected:
 	ELEMID _myball; //自分の持ち球
 	PrefabManager _prefab; //ボールの生成などを行わせる
 	D3DXVECTOR3 shootvec;//打つ方向
+	SArrow* arrow;
+	SScore* score;
 public:
 	BallManager();
 	~BallManager();
@@ -34,6 +38,9 @@ public:
 	bool waitBall();
 	bool TargetBall();
 	bool SetBall();
+	void spriteArrow(D3DXVECTOR2 spos);
+	bool initialize();
+	float ACOS(float x, float y);
 
 };
 

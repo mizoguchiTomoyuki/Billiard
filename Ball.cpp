@@ -2,6 +2,7 @@
 Ball::Ball() : gameObject(){
 	_mesh.start(this);
 	_mesh.initialize(BALL_MESH,NINEBALL_TEXTURE, graphicsNS::BLUE, { 0.2f, 0.2f, 0.2f, 1.0f });
+
 	transform.position = { 10.0f, 10.0f, 10.0f };
 	float radius = 0.65f;
 	transform.scale = { radius, radius, radius };
@@ -15,10 +16,12 @@ Ball::Ball() : gameObject(){
 	MyPrefab = PREFAB_MENU::BALL;
 	isMove = false;
 	MoveLength =0.0f;
+	isFall = false;
 }
 Ball::Ball(const char* texName) : gameObject(){
 	_mesh.start(this);
 	_mesh.initialize(texName, NINEBALL_TEXTURE, graphicsNS::BLUE, { 0.2f, 0.2f, 0.2f, 1.0f });
+
 	transform.position = { 10.0f, 10.0f, 10.0f };
 	float radius = 0.65f;
 	transform.scale = { radius, radius, radius };
@@ -40,7 +43,8 @@ Ball::~Ball(){
 }
 
 void Ball::update(){
-	
+	if (isFall)
+		return;
 	float frameTime = GameSceneManager::Instance().GetGameptr()->getframeTime();
 	velocity += deltaV;
 	attenuation();
@@ -72,6 +76,13 @@ void Ball::collision(){
 		if (obj->pointer->getisCollide()){
 			if (obj->pointer->getELEMID() != getELEMID())
 				getCollider()->collide(*obj->pointer, velocity);
+			if (getCollider()->getisCollide() && obj->pointer->getCollider()->getColliderTag() == ColliderNS::COL_TAG::DARKHOLE){
+				D3DXVECTOR3 length = transform.position - obj->pointer->getPosition();
+				if (D3DXVec3Length(&length) < 0.5f){
+					Holedown();
+				}
+
+			}
 		}
 		if (obj->next != nullptr)
 			obj = obj->next;
@@ -81,6 +92,12 @@ void Ball::collision(){
 	}
 }
 
+//ŒŠ‚É—Ž‚¿‚½‚Æ‚«‚Ì‹““®
+void Ball::Holedown(){
+	isFall = true;
+
+
+}
 void Ball::attenuation(){
 	//“®–€ŽCŒW”
 	float frameTime = GameSceneManager::Instance().GetGameptr()->getframeTime();

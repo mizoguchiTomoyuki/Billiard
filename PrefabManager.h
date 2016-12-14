@@ -6,6 +6,8 @@ class Camera;
 class DirectionalLight;
 class PointLight;
 class Box;
+class BilliardTable;
+class DarkHole;
 //Prefabを作る機能だけをまとめたクラス
 class PrefabManager{
 public:
@@ -20,4 +22,6 @@ public:
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "Box.h"
+#include "Billiardtable.h"
+#include "DarkHole.h"
 #endif

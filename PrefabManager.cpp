@@ -116,7 +116,19 @@ ELEMID PrefabManager::PrefabCreate(PREFAB_MENU p){
 		gameObjectFactory::Instance().GetElem(retid)->SetName("Ball_9");
 	}
 	break;
+	case PREFAB_MENU::BILLIARDTABLE:
+	{
+		BilliardTable* _b = new BilliardTable();
+		retid = _b->getELEMID();
+	}
+	break;
 
+	case PREFAB_MENU::DARKHOLE:
+	{
+		DarkHole* _b = new DarkHole();
+		retid = _b->getELEMID();
+	}
+	break;
 	case PREFAB_MENU::EXIT:
 
 		break;

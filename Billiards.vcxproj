@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="BallManager.cpp" />
+    <ClCompile Include="Billiardtable.cpp" />
     <ClCompile Include="Billiards.cpp" />
     <ClCompile Include="AABBCollider.cpp" />
     <ClCompile Include="Box.cpp" />
@@ -22,6 +23,7 @@
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="console.cpp" />
     <ClCompile Include="CreateConsole.cpp" />
+    <ClCompile Include="DarkHole.cpp" />
     <ClCompile Include="DebugWindow.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="game.cpp" />
@@ -39,10 +41,21 @@
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="PrefabManager.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="SArrow.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteObject.cpp" />
+    <ClCompile Include="SpriteObjectFactory.cpp" />
+    <ClCompile Include="SScore.cpp" />
+    <ClCompile Include="SShadow.cpp" />
     <ClCompile Include="Table.cpp" />
     <ClCompile Include="Task.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="textdx.cpp" />
+    <ClCompile Include="TextObject.cpp" />
+    <ClCompile Include="TextureInitializer.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TextureStorage.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +63,7 @@
     <ClInclude Include="BallManager.h" />
     <ClInclude Include="Billiards.h" />
     <ClInclude Include="AABBCollider.h" />
+    <ClInclude Include="BilliardTable.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="cameraFactory.h" />
@@ -59,6 +73,7 @@
     <ClInclude Include="constants.h" />
     <ClInclude Include="Context.h" />
     <ClInclude Include="CreateConsole.h" />
+    <ClInclude Include="DarkHole.h" />
     <ClInclude Include="DebugWindow.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="game.h" />
@@ -67,6 +82,7 @@
     <ClInclude Include="gameObjectFactory.h" />
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="graphics.h" />
+    <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="lightFactory.h" />
@@ -78,19 +94,33 @@
     <ClInclude Include="PrefabManager.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="SArrow.h" />
     <ClInclude Include="SphereCollider.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteObjectFactory.h" />
+    <ClInclude Include="SScore.h" />
+    <ClInclude Include="SShadow.h" />
     <ClInclude Include="Table.h" />
     <ClInclude Include="Task.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="textdx.h" />
+    <ClInclude Include="TextObject.h" />
+    <ClInclude Include="TextureInitializer.h" />
+    <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="TextureStorage.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\ball.x" />
-    <None Include="..\Project1\Axis.x" />
     <None Include="..\Project1\Cube2.x" />
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="XData\Axis.x" />
+    <None Include="XData\billiard.x" />
+    <None Include="XData\billiardtable.x" />
     <None Include="XData\eight.x" />
     <None Include="XData\five.x" />
     <None Include="XData\four.x" />
+    <None Include="XData\myball.x" />
     <None Include="XData\nine.x" />
     <None Include="XData\one.x" />
     <None Include="XData\primitiveCube.x" />

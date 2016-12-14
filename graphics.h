@@ -29,6 +29,7 @@
 #define SETCOLOR_ARGB(a,r,g,b) \
     ((COLOR_ARGB)((((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff)))
 
+typedef LPDIRECT3DTEXTURE9 LP_TEXTURE;
 
 namespace graphicsNS
 {
@@ -107,6 +108,7 @@ struct MeshData
 	D3DCOLORVALUE MAmbient;
 	LPD3DXMESH	 Mesh;
 	LP_TEXTURE   *Texture;
+	D3DMATERIAL9* mats;
 	VECTOR3		scale;
 	VECTOR3		Angle;
 	VECTOR3		position;
@@ -261,7 +263,7 @@ public:
 		if (device3d == NULL)
 			return result;
 		// clear backbuffer to backColor
-		device3d->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80), 1.0f, 0);
+		device3d->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 		result = device3d->BeginScene();          // begin scene for drawing
 
 		return result;
@@ -285,7 +287,6 @@ public:
 	//=============================================================================
 	void spriteBegin()
 	{
-		//CameraSet();
 		sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	}
 

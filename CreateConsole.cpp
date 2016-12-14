@@ -5,6 +5,8 @@
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "MouseExtend.h"
+#include "Billiardtable.h"
+#include "DarkHole.h"
 //======================================================================================
 //コンストラクタ
 //======================================================================================
@@ -536,6 +538,16 @@ std::string CreateConsole::PrefabName(PREFAB_MENU p){
 		returnValue = "Box";
 	}
 	break;
+	case PREFAB_MENU::BILLIARDTABLE:
+	{
+		returnValue = "BilliardTable";
+	}
+	break;
+	case PREFAB_MENU::DARKHOLE:
+	{
+		returnValue = "DarkHole";
+	}
+	break;
 	case PREFAB_MENU::EXIT:
 	{
 		returnValue = "exit";
@@ -581,6 +593,18 @@ void CreateConsole::CreatePrefab(PREFAB_MENU p,std::string n){
 	{
 		Box* _box = new Box();
 		_box->SetName(n);
+	}
+	break;
+	case PREFAB_MENU::BILLIARDTABLE:
+	{
+		BilliardTable* _bt = new BilliardTable();
+		_bt->SetName(n);
+	}
+	break;
+	case PREFAB_MENU::DARKHOLE:
+	{
+		DarkHole* _dh = new DarkHole();
+		_dh->SetName(n);
 	}
 	break;
 	case PREFAB_MENU::EXIT:

@@ -6,7 +6,7 @@ DirectionalLight::DirectionalLight() : gameObject(){
 	_light = new Light();
 	_light_id = LightFactory::Instance().CreateElem(*_light);
 	_light->initialize();
-	VECTOR3 di = { 20, 0.0f, 20 };
+	VECTOR3 di = { 0, 20.0f, 7 };
 	_light->SetDirection(di);
 }
 

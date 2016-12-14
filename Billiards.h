@@ -7,11 +7,14 @@
 #include "Ball.h"
 #include "light.h"
 #include "BallManager.h"
+#include "TextureInitializer.h"
+#include "SArrow.h"
 class Billiard : public Game
 {
 private :
 	int Ang;
 	BallManager _bmanager;
+	TextureInitializer* TextureInit;
 public:
 	Billiard();
 	virtual ~Billiard();
@@ -25,6 +28,8 @@ public:
 	virtual void deleteAll();
 	virtual void Lightupdate();
 	virtual void gameObjectupdate();
+	virtual void SpriteObjectupdate();
+	virtual void SpriteObjectdraw();
 	virtual void gameObjectdraw();
 	virtual void ResetGame();
 };

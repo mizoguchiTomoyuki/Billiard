@@ -9,6 +9,11 @@ namespace ColliderNS{
 		AABB =2, //三次元空間の軸に平行なボックス
 		END,
 	};
+	enum COL_TAG
+	{
+		DARKHOLE = 0,
+		OTHER
+	};
 
 }
 //衝突判定を行うクラスの親クラス
@@ -24,6 +29,9 @@ protected:
 	D3DXVECTOR3 cVector; //Bounce時の保持よう
 	gameObject* bounceObj;
 	bool Freeze;
+	bool isTrigger;
+	bool isCollide;
+	ColliderNS::COL_TAG tag;
 public:
 	Collider();
 	~Collider();
@@ -37,6 +45,11 @@ public:
 	void bounce(gameObject &obj, D3DXVECTOR3 &collisionVector, D3DXVECTOR3 Sinking, D3DXVECTOR3 ref);
 	void bounceOn(gameObject &obj, D3DXVECTOR3 &collisionVector);
 	void SetFreeze(bool b){ Freeze = b; }
+	void setTrigger(bool t){ isTrigger = t; }
+	bool getTrigger(){ return isTrigger; }
+	void setTag(ColliderNS::COL_TAG t){ tag = t; }
+	ColliderNS::COL_TAG getColliderTag(){ return tag; }
+	bool getisCollide(){ return isCollide; }
 
 };
 

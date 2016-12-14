@@ -10,6 +10,7 @@ private:
 	float t;
 	bool isMove;
 	float MoveLength;
+	bool isFall;
 public:
 	Ball();
 	Ball(const char* meshName);
@@ -21,6 +22,8 @@ public:
 	void attenuation(); //運動の減衰を示すもの。現状汎用化手法が思いつかないのでBallクラスのみ実装する
 	void Rolling();
 	bool isMoving(){ return isMove; }
+	void Holedown();
+	bool getisFall(){ return isFall; };
 };
 
 #endif

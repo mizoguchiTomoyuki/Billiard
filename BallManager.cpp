@@ -12,7 +12,19 @@ BallManager::~BallManager(){
 
 
 }
+bool BallManager::initialize(){
 
+	arrow = new SArrow();
+	arrow->initialize();
+	arrow->setPosition({ 0, 0 });
+	arrow->setScale(1.0f);
+	arrow->isVisible(true);
+
+	score = new SScore();
+	arrow->isVisible(true);
+	return true;
+
+}
 void BallManager::update(){
 	float frameTime = GameSceneManager::Instance().GetGameptr()->getframeTime();
 	switch (state){
@@ -98,6 +110,7 @@ bool BallManager::ShootBall(){
 	Input* in = GameSceneManager::Instance().GetGameptr()->getInput();
 
 	if (in->getMouseRButton()){
+		arrow->isVisible(false);
 		gameObject* ball = gameObjectFactory::Instance().GetElem(_myball);
 		shootvec = { shootvec.x, 0, shootvec.z };
 		ball->setDeltaV(shootvec*20.0f);
@@ -124,6 +137,7 @@ bool BallManager::waitBall(){
 
 			ret = false;
 		}
+		arrow->isVisible(ret);
 	return ret;
 
 }
@@ -135,18 +149,43 @@ bool BallManager::TargetBall(){
 	GameSceneManager::Instance().GetGameptr()->getGraphics()->getScreenPosition(ball->getTransform()->getPosition(), spos);
 	spos = { spos.x, 0, spos.y };
 	
-	D3DXVECTOR3 mPos = { (float)in->getMouseX(), 0, (float)in->getMouseY() };
+	D3DXVECTOR3 mPos = { (float)in->getMousePosX(), 0, (float)in->getMousePosY() };
+	shootvec = mPos - spos;
+	D3DXVec3Normalize(&shootvec, &shootvec);
+	spriteArrow({spos.x,spos.z});
 	if (in->getMouseLButton()){
-		shootvec = mPos - spos;
-		D3DXVec3Normalize(&shootvec, &shootvec);
+
 		return true;
 
 	}
 
 
+
 	return false;
 }
 
+void BallManager::spriteArrow(D3DXVECTOR2 spos){
+	float a = -shootvec.x;
+	float b = -shootvec.z;
+	float atNUM = b / sqrt((pow(a, 2) + pow(b, 2))) + a;
+	float theta = 2*atanf(atNUM); //方向から角度を出す
+	theta = ACOS(a, b);
+	D3DXVECTOR2 offset = { arrow->getWidth() / 2.0f, arrow->getHeight() / 2.0f };
+	arrow->setPosition(spos - offset);
+	arrow->setAngle(theta);
+}
+float BallManager::ACOS(float x, float y){
+	float radius = 1.0f;
+	float theta = 0;
+	if (SIGN(y) < 0){
+		theta = -acos(x / radius);
+	}
+	else{
+		theta = acos(x / radius);
+	}
+	return theta;
+
+}
 //白球のセットしなおし配置したらtrue;
 bool BallManager::SetBall(){
 

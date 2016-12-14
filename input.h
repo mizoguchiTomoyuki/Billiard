@@ -143,7 +143,7 @@ public:
 	int getMouseRawX() const { return mouseRawX; }
 	int getMouseRawY() const { return mouseRawY; }
 	int getMousePosX() const { return mousePosX; }
-	int getMousePoswY() const { return mousePosY; }
+	int getMousePosY() const { return mousePosY; }
 	bool getMouseLButton() const { return mouseLButton; }
 	bool getMouseMButton() const { return mouseMButton; }
 	bool getMouseRButton() const { return mouseRButton; }

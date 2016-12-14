@@ -1,10 +1,13 @@
 #include "Collider.h"
 Collider::Collider() : Task(){
 	_type = ColliderNS::END;
+	tag = ColliderNS::OTHER;
 	bounceFlag = false;
 	cVector = { 0.0f, 0.0f, 0.0f };
 	bounceObj = nullptr;
 	Freeze = false;
+	isTrigger = false;
+	isCollide = false;
 }
 
 Collider::~Collider(){
@@ -31,6 +34,10 @@ void Collider::draw(){
 //場合分けに対応するため速度の保管用などの用途とは別に跳ね返るべき方向成分Sinkingを用意(球とAABBでは跳ね返す方向のルールが違うため)
 void Collider::bounce(gameObject &obj, D3DXVECTOR3 &collisionVector, D3DXVECTOR3 Sinking, D3DXVECTOR3 ref)
 {
+	isCollide = true;
+	if (obj.getCollider()->getTrigger() || getTrigger())
+		return;
+
 	float e = 1.0f;
 	D3DXVECTOR3 Vdiff = collisionVector - obj.getVelocity(); //相手側の速度ベクトルから自分側の速度ベクトルを引くことで反射されるべく方向を出す。
 	D3DXVECTOR3 cUV; //衝突単位ベクトル(collisionVectorは各collide関数から常に帰ってきている)

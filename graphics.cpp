@@ -177,10 +177,15 @@ HRESULT Graphics::loadXMesh(const char *file, COLOR_ARGB transcolor, MeshData &m
 			}*/
 			mesh.Texture = (LP_TEXTURE*)malloc(sizeof(LP_TEXTURE) * mesh.NumMaterial);
 
+			mesh.mats = (D3DMATERIAL9*)malloc(sizeof(D3DMATERIAL9) *mesh.NumMaterial);
+			D3DXMATERIAL* d3dxmatrs = (D3DXMATERIAL*)mesh.pMaterials->GetBufferPointer();
 			//mesh.Texture = new LP_TEXTURE[mesh.NumMaterial];
 			for (int i = 0; i < (int)mesh.NumMaterial; i++){
 				D3DXMATERIAL *mat = ((D3DXMATERIAL*)(mesh.pMaterials->GetBufferPointer()) + i);
-				if (mat[i].pTextureFilename != NULL){
+				mesh.mats[i] = mat->MatD3D;
+				mesh.mats[i].Ambient = mesh.mats[i].Diffuse;
+				mesh.Texture[i] = NULL;
+				if (mat[i].pTextureFilename != NULL && lstrlen(mat[i].pTextureFilename) > 0){
 					std::string filename = mat[i].pTextureFilename;
 					filename.erase(0,2); //Žæ“¾•¶Žš—ñ‚Ìæ“ª‚É.//‚ªŠÜ‚Ü‚ê‚Ä‚¢‚é‚½‚ß‚Æ‚è‚ ‚¦‚¸‚±‚ê‚ÌÁ‹ŽB
 					const char* c = filename.c_str();
@@ -425,36 +430,34 @@ void Graphics::drawSprite(const SpriteData &spriteData, COLOR_ARGB color)
 		return;
 
 
-	float zScale = 1;//MainCamera->getZoomScale();
-	float zoomScale = spriteData.scale*zScale;
 	D3DXVECTOR2 camPos = VECTOR2(0, 0);//MainCamera->getcameraPos();
 	int camWidth = 256;//MainCamera->getCameraWidth();
 	int camHeight = 256;// MainCamera->getCameraHeight();
 	// Find center of sprite
-	D3DXVECTOR2 spriteCenter = D3DXVECTOR2((float)((spriteData.width) / 2 * zoomScale),
-		(float)((spriteData.height) / 2 * zoomScale));
+	D3DXVECTOR2 spriteCenter = D3DXVECTOR2((float)((spriteData.width) / 2),
+		(float)((spriteData.height) / 2));
 	// Screen position of the sprite
-	D3DXVECTOR2 translate = D3DXVECTOR2(((float)spriteData.x)*zScale + camPos.x*zoomScale,
-		(float)spriteData.y*zScale + camPos.y*zoomScale);
+	D3DXVECTOR2 translate = D3DXVECTOR2(((float)spriteData.x),
+		(float)spriteData.y);
 	// Scaling X,Y
-	D3DXVECTOR2 scaling(spriteData.scale*zScale, spriteData.scale*zScale);
+	D3DXVECTOR2 scaling(spriteData.scale, spriteData.scale);
 	if (spriteData.flipHorizontal)  // if flip horizontal
 	{
 		scaling.x *= -1;            // negative X scale to flip
 		// Get center of flipped image.
-		spriteCenter.x -= (float)(spriteData.width*zoomScale);
+		spriteCenter.x -= (float)(spriteData.width);
 		// Flip occurs around left edge, translate right to put
 		// Flipped image in same location as original.
-		translate.x += (float)(spriteData.width*zoomScale);
+		translate.x += (float)(spriteData.width);
 	}
 	if (spriteData.flipVertical)    // if flip vertical
 	{
 		scaling.y *= -1;            // negative Y scale to flip
 		// Get center of flipped image
-		spriteCenter.y -= (float)(spriteData.height*zoomScale);
+		spriteCenter.y -= (float)(spriteData.height);
 		// Flip occurs around top edge, translate down to put
 		// Flipped image in same location as original.
-		translate.y += (float)(spriteData.height*zoomScale);
+		translate.y += (float)(spriteData.height);
 	}
 	// Create a matrix to rotate, scale and position our sprite
 	D3DXMATRIX matrix;

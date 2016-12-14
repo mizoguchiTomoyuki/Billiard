@@ -3,6 +3,7 @@
 MeshRenderer::MeshRenderer(){
 	enable = true;
 	_mesh.isWire = false;
+	offset_position = { 0, 0, 0 };
 }
 //デストラクタ
 MeshRenderer::~MeshRenderer(){
@@ -15,7 +16,7 @@ void MeshRenderer::start(gameObject* t){
 }
 
 void MeshRenderer::update(){
-	_mesh.position = transform->getPosition();
+	_mesh.position = transform->getPosition()+offset_position;
 	_mesh.Angle = transform->getRotation();
 	_mesh.scale = transform->getScale();
 	_mesh.ar.Angle = transform->Axis_angle;
@@ -38,6 +39,7 @@ void MeshRenderer::initialize(const char *filename, const char *texdir, COLOR_AR
 void MeshRenderer::draw(){
 	if (!initialized && !enable)
 		return;
+
 	graphics->drawMesh(_mesh);
 
 }
@@ -48,6 +50,7 @@ void MeshRenderer::onLostDevice(){
 	delete[] _mesh.Texture;
 	SAFE_RELEASE(_mesh.Mesh);
 	SAFE_RELEASE(_mesh.pMaterials);
+	delete[] _mesh.mats;
 	
 }
 

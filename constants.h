@@ -16,6 +16,7 @@
 #define SAFE_ON_LOST_DEVICE(ptr)    { if(ptr) { ptr->onLostDevice(); } }
 
 #define SAFE_ON_RESET_DEVICE(ptr)   { if(ptr) { ptr->onResetDevice(); } }
+#define TRANSCOLOR  SETCOLOR_ARGB(255,0,0,0)  // 透明色
 
 #define ARRAY_LENGTH(array) (sizeof(array) / sizeof(array[0]))
 
@@ -28,7 +29,12 @@ const char GAME_TITLE[] = "Billiards";
 
 inline int SIGN(float a){ return ((a > 0) - (a < 0)); }
 
+const char ARROW_IMAGE[] = "pictures\\arrow.png";
+const char SHADOW_IMAGE[] = "pictures\\shadow.png"; 
+const char FONT_IMAGE[] = "pictures\\font6462.png"; 
 const char PRIMITIVE_CUBE[] = "XData\\primitiveCube.x";
+const char BILLTABLE_CUBE[] = "XData\\billiardtable.x";
+const char BILLMAT_CUBE[] = "XData\\billiardmat.x";
 const char PRIMITIVE_SPHERE[] = "XData\\primitiveSphere.x";
 const char ONEBALL_MESH[] = "XData\\one.x";
 const char TWOBALL_MESH[] = "XData\\two.x";
@@ -39,7 +45,8 @@ const char SIXBALL_MESH[] = "XData\\six.x";
 const char SEVENBALL_MESH[] = "XData\\seven.x";
 const char EIGHTBALL_MESH[] = "XData\\eight.x";
 const char NINEBALL_MESH[] = "XData\\nine.x";
-const char BALL_MESH[] = "XData\\ball.x";
+const char BALL_MESH[] = "XData\\myball.x";
+const char SHADOW_MESH[] = "XData\\shadow.x";
 const char NINEBALL_TEXTURE[] = "XData";
 const char CUBE_MESH[] = "XData\\Cube2.x";
 
@@ -64,7 +71,6 @@ const UCHAR DOWN_KEY = VK_DOWN;
 typedef int ELEMID;	// 要素ID
 typedef size_t OBJID;	// オブジェクトID
 
-
 const enum PREFAB_MENU{
 	BALL = 0,
 	CAMERA = 1,
@@ -80,6 +86,8 @@ const enum PREFAB_MENU{
 	BALL_7 = 11,
 	BALL_8 = 12,
 	BALL_9 = 13,
+	BILLIARDTABLE = 14,
+	DARKHOLE = 15,
 	EXIT,
 };
 

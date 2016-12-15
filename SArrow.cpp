@@ -28,11 +28,16 @@ void SArrow::update(){
 }
 
 void SArrow::draw(){
-	sprite.draw();
+	sprite.draw(graphicsNS::FILTER);
 }
 void SArrow::ai(){
 
 }
 void SArrow::collision(){
 
+}
+void SArrow::PowerColor(float a){
+	int col = 255 * a;
+	D3DCOLOR b = D3DCOLOR_ARGB(255,col, col,col);
+	sprite.setColorFilter(b);
 }

@@ -70,6 +70,7 @@ struct ControllerState
 class Input
 {
 private:
+	HWND hw;
 	//指定のキーが押されている状態の場合にtrue
 	bool keysDown[inputNS::KEYS_ARRAY_LEN];
 	//指定のキーが押された場合にtrue
@@ -142,8 +143,19 @@ public:
 	//マウスの位置の移動のローデータを返す。左(上)への移動は<0、右(下)への移動は>0
 	int getMouseRawX() const { return mouseRawX; }
 	int getMouseRawY() const { return mouseRawY; }
-	int getMousePosX() const { return mousePosX; }
-	int getMousePosY() const { return mousePosY; }
+	int getMousePosX() const {
+		RECT l = {0,0,0,0};
+		int left = 0;
+		if (GetWindowRect(hw, &l))
+			left =  l.left;
+		return mousePosX-left; }
+	int getMousePosY() const {
+		RECT l = { 0, 0, 0, 0 };
+		int top = 0;
+		if (GetWindowRect(hw, &l))
+			top = l.top;
+		return mousePosY - top;
+	}
 	bool getMouseLButton() const { return mouseLButton; }
 	bool getMouseMButton() const { return mouseMButton; }
 	bool getMouseRButton() const { return mouseRButton; }

@@ -2,6 +2,7 @@
 //コンストラクタ
 MeshRenderer::MeshRenderer(){
 	enable = true;
+	visible = true;
 	_mesh.isWire = false;
 	offset_position = { 0, 0, 0 };
 }
@@ -39,7 +40,8 @@ void MeshRenderer::initialize(const char *filename, const char *texdir, COLOR_AR
 void MeshRenderer::draw(){
 	if (!initialized && !enable)
 		return;
-
+	if (!visible)
+		return;
 	graphics->drawMesh(_mesh);
 
 }

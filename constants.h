@@ -30,7 +30,14 @@ const char GAME_TITLE[] = "Billiards";
 inline int SIGN(float a){ return ((a > 0) - (a < 0)); }
 
 const char ARROW_IMAGE[] = "pictures\\arrow.png";
-const char SHADOW_IMAGE[] = "pictures\\shadow.png"; 
+const char SHADOW_IMAGE[] = "pictures\\shadow.png";
+const char RING_IMAGE[] = "pictures\\ring.png";
+const char LOGO_IMAGE[] = "pictures\\logo.png";
+const char ISHOOT_IMAGE[] = "pictures\\infoshoot.png";
+const char ITARGET_IMAGE[] = "pictures\\infotarget.png";
+const char ISETUP_IMAGE[] = "pictures\\infosetUp.png";
+const char GAMEOVER_IMAGE[] = "pictures\\Gameover.png";
+const char ISCORE_IMAGE[] = "pictures\\infoScore.png";
 const char FONT_IMAGE[] = "pictures\\font3251.png"; 
 const char PRIMITIVE_CUBE[] = "XData\\primitiveCube.x";
 const char BILLTABLE_CUBE[] = "XData\\billiardtable.x";

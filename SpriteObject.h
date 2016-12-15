@@ -38,6 +38,7 @@ public:
 	void setScale(float sca){ transform.scale = sca; }
 	void setAngle(float a){ transform.angle = a; }
 	bool isDestroy(){ return destroy; }
+	void Destroy(){ destroy = true; }
 	void isVisible(bool b){ visible = b; }
 
 };

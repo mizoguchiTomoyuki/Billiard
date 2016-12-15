@@ -15,7 +15,7 @@ Box::Box() : gameObject(){
 	Mass = 100000;
 	deltaV = { 0, 0, 0 };
 	velocity = { 0, 0, 0 };
-	_mesh.setActive(false);
+	_mesh.setActive(true);
 }
 
 Box::~Box(){
@@ -41,7 +41,7 @@ void Box::draw(){
 	if (GameSceneManager::Instance().GetGameptr()->getpause()){
 		_mesh.update();
 	}
-//	_mesh.draw();
+	//_mesh.draw();
 	col.draw();
 }
 

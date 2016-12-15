@@ -9,6 +9,7 @@ namespace SArrowNS{
 	const int HEIGHT = 128;
 }
 class SArrow:public SpriteObject {
+protected:
 public:
 	SArrow();
 	virtual ~SArrow();
@@ -17,6 +18,7 @@ public:
 	virtual void draw();
 	virtual void ai();
 	virtual void collision();
+	void PowerColor(float); //—Í‚Ì‚½‚ß‹ï‡‚ÅF‚ğ•Ï‰»‚³‚¹‚é(‚Å‚«‚½‚çˆÚ“®Šg‘å‚È‚Ç‚à)
 
 };
 

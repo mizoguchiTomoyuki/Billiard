@@ -103,6 +103,8 @@ void Game::initialize(HWND hw)
 	hwnd = hw;
 	graphics = new Graphics();
 	graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT, FULLSCREEN);
+	//入力を初期化、マウスはキャプチャしない。
+	input->initialize(hwnd, false); //GameErrorをスロー
 	c_console = new CreateConsole();
 	c_console->initialize(graphics, input);
 

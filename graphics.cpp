@@ -811,3 +811,59 @@ void Graphics::getScreenPosition(D3DXVECTOR3 pos, D3DXVECTOR3 &screenpos){
 	*/
 
 }
+//Yは無視してスクリーン座標を直すposの値を
+void Graphics::getScreenToWorldPoint(D3DXVECTOR3 screenpos, D3DXVECTOR3 &pos){
+
+	D3DXMATRIX mView;
+	D3DXMATRIX mPers;
+	MainCamera = CameraFactory::Instance().GetMainCamera(); //Mainカメラは処理ごとに取得?
+	if (MainCamera == nullptr)
+		return;
+	if (MainCamera->initialized){
+		D3DXMatrixLookAtLH(
+			&mView,
+			&MainCamera->position,
+			&MainCamera->LookAt,
+			&MainCamera->Up
+			);
+		if (!MainCamera->orthographics){
+			D3DXMatrixPerspectiveFovLH(
+				&mPers,
+				MainCamera->fovY,
+				MainCamera->aspect,
+				MainCamera->nearClip,
+				MainCamera->farClip
+				);
+		}
+	}
+	float z0 = MainCamera->nearClip;
+	float z1 = MainCamera->farClip;
+	float WIDTH = GAME_WIDTH;
+	float HEIGHT = GAME_HEIGHT;
+
+	D3DXMATRIX mViewPort;
+	D3DXMatrixIdentity(&mViewPort);
+	mViewPort._11 = WIDTH / 2;
+	mViewPort._41 = WIDTH / 2;
+	mViewPort._22 = -HEIGHT / 2;
+	mViewPort._42 = HEIGHT / 2;
+	mViewPort._33 = 1.0f;
+	mViewPort._44 = 1.0f;
+
+	D3DXMATRIX mInvView, mInvProj, mInvViewPort;
+	D3DXMatrixInverse(&mInvView, NULL, &mView);
+	D3DXMatrixInverse(&mInvProj, NULL, &mPers);
+	D3DXMatrixInverse(&mInvViewPort, NULL, &mViewPort);
+
+	D3DXMATRIX result;
+	result._11 = result._21 = result._31 = result._41 = screenpos.x;
+	result._12 = result._22 = result._32 = result._42 = screenpos.y;
+	result._13 = result._23 = result._33 = result._43 = 0.0;
+	result._14 = result._24 = result._34 = result._44 = 1;
+
+	D3DXMATRIX mBase0 = result * mInvViewPort * mInvProj * mInvView;
+
+	pos.x = mBase0._11 / mBase0._14;
+	pos.y = mBase0._12 / mBase0._14;
+	pos.z = mBase0._13 / mBase0._14;
+}

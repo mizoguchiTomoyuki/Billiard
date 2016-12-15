@@ -155,17 +155,7 @@ void Billiard::deleteAll(){
 }
 //‘S•”Á‚µ‚Äì‚è’¼‚·
 void Billiard::ResetGame(){
-	LightFactory::Instance().ReleaseAll();
-	LightFactory::Instance().Destroy();
-	gameObjectFactory::Instance().ReleaseAll();
-	gameObjectFactory::Instance().Destroy();
-	SpriteObjectFactory::Instance().ReleaseAll();
-	SpriteObjectFactory::Instance().Destroy();
-	SpriteObjectFactory::Create();
-	LightFactory::Create();
-	gameObjectFactory::Create();
-	ODM = new ObjectDataManager();
-	ODM->DataLoad();
-	_bmanager.GameStart();
+
+	_bmanager.GameReset();
 
 }

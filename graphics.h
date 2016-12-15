@@ -315,6 +315,7 @@ public:
 		float m31, float m32, float m33
 		);
 	void getScreenPosition(D3DXVECTOR3 pos, D3DXVECTOR3 &screenpos);
+	void getScreenToWorldPoint (D3DXVECTOR3 screenpos, D3DXVECTOR3 &pos);
 };
 
 #endif

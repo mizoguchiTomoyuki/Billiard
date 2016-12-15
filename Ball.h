@@ -11,6 +11,7 @@ private:
 	bool isMove;
 	float MoveLength;
 	bool isFall;
+	bool Fallcheck;
 public:
 	Ball();
 	Ball(const char* meshName);
@@ -24,6 +25,17 @@ public:
 	bool isMoving(){ return isMove; }
 	void Holedown();
 	bool getisFall(){ return isFall; };
+	bool getisFallcheck(){ return Fallcheck; };
+	void FallCheck(){ Fallcheck = true; isMove = false; }//チェック完了を通知
+	void FallCheckReset(){ Fallcheck = false; isMove = true; }
+	void setVisible(bool b){ _mesh.isVisible(b); }
+	void SetTrigger(bool b){ col.setTrigger(b); }
+	void setFall(bool b){ isFall = b; }
+	void resetBall(){
+		velocity = { 0, 0, 0 };
+		deltaV = { 0, 0, 0 };
+
+	}
 };
 
 #endif

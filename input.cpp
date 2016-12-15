@@ -64,6 +64,7 @@ Input::~Input()
 //==========================================================================
 void Input::initialize(HWND hwnd, bool capture)
 {
+	hw = hwnd;
 	try{
 		mouseCaptured = capture;
 		//‚¸×ƒ}ƒEƒX‚ğ“o˜^

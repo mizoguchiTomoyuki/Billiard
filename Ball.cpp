@@ -4,7 +4,7 @@ Ball::Ball() : gameObject(){
 	_mesh.initialize(BALL_MESH,NINEBALL_TEXTURE, graphicsNS::BLUE, { 0.2f, 0.2f, 0.2f, 1.0f });
 
 	transform.position = { 10.0f, 10.0f, 10.0f };
-	float radius = 0.65f;
+	float radius = 0.55f;
 	transform.scale = { radius, radius, radius };
 	SetObjClassName("Ball");
 	t = 0.0f;
@@ -17,13 +17,14 @@ Ball::Ball() : gameObject(){
 	isMove = false;
 	MoveLength =0.0f;
 	isFall = false;
+	Fallcheck = false;
 }
 Ball::Ball(const char* texName) : gameObject(){
 	_mesh.start(this);
 	_mesh.initialize(texName, NINEBALL_TEXTURE, graphicsNS::BLUE, { 0.2f, 0.2f, 0.2f, 1.0f });
 
 	transform.position = { 10.0f, 10.0f, 10.0f };
-	float radius = 0.65f;
+	float radius = 0.55f;
 	transform.scale = { radius, radius, radius };
 	transform.Axis = { 1, 0, 0 };
 	transform.Axis_angle = -(PI/2.0f);
@@ -43,7 +44,7 @@ Ball::~Ball(){
 }
 
 void Ball::update(){
-	if (isFall)
+	if (Fallcheck)
 		return;
 	float frameTime = GameSceneManager::Instance().GetGameptr()->getframeTime();
 	velocity += deltaV;
@@ -56,6 +57,7 @@ void Ball::update(){
 	_mesh.update();
 	col.update();
 	recordupdate();
+
 }
 
 void Ball::draw(){
@@ -78,7 +80,7 @@ void Ball::collision(){
 				getCollider()->collide(*obj->pointer, velocity);
 			if (getCollider()->getisCollide() && obj->pointer->getCollider()->getColliderTag() == ColliderNS::COL_TAG::DARKHOLE){
 				D3DXVECTOR3 length = transform.position - obj->pointer->getPosition();
-				if (D3DXVec3Length(&length) < 0.5f){
+				if (D3DXVec3Length(&length) < 0.8f){
 					Holedown();
 				}
 

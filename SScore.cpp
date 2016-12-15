@@ -17,7 +17,6 @@ bool SScore::initialize(){
 
 }
 void SScore::update(){
-	transform.position = { 0, 0 };
 	_text.setX(transform.position.x);
 	_text.setY(transform.position.y);
 	_text.setScale(transform.scale);
@@ -28,11 +27,10 @@ void SScore::update(){
 
 void SScore::draw(){
 	_text.setProportional(true);
-	_text.setProportionalSpacing(20);
+	_text.setProportionalSpacing(1);
 	_text.setFontColor(graphicsNS::WHITE);
 	_text.setBackColor(TRANSCOLOR);
-	str = "-21";
-	_text.print(str,0,0);
+	_text.print(str);
 }
 void SScore::ai(){
 

@@ -39,7 +39,7 @@ void DarkHole::draw(){
 	if (GameSceneManager::Instance().GetGameptr()->getpause()){
 		_mesh.update();
 	}
-	_mesh.draw();
+	//_mesh.draw();
 	col.draw();
 }
 

@@ -53,6 +53,8 @@ bool AABBCollider::collide(gameObject &obj, D3DXVECTOR3 &collisionVector){
 	if (obj.getCollider()->getType() == ColliderNS::AABB){
 		returnValue = ToAABB(obj, collisionVector);
 	}
+
+	isCollide = returnValue;
 	return returnValue;
 
 }

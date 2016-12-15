@@ -103,6 +103,10 @@ void BallManager::update(){
 				state = BMNS::TARGETBALL_END;
 
 			}
+			if (!CheckBallCollide()){
+				GameReset();
+
+			}
 			break;
 		case BMNS::TARGETBALL_END:
 			if (!LClicked){

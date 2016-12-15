@@ -50,6 +50,8 @@ bool SphereCollider::collide(gameObject &obj, D3DXVECTOR3 &collisionVector){
 	if (obj.getCollider()->getType() == ColliderNS::AABB){
 		returnValue = ToAABB(obj, collisionVector);
 	}
+
+	isCollide = returnValue;
 	return returnValue;
 
 }
@@ -125,7 +127,43 @@ bool SphereCollider::ToAABB(gameObject &obj, D3DXVECTOR3 &collisionVector){
 		float x = ((Vecx > aabb.hl.x) + (Vecx < -aabb.hl.x))*Vecx; //AABBよりどちらかの外側にいる場合のみ0にならない
 		float y = ((Vecy > aabb.hl.y) + (Vecy < -aabb.hl.y))*Vecy; //また外側にいる場合はAABBの面への方向を返す
 		float z = ((Vecz > aabb.hl.z) + (Vecz < -aabb.hl.z))*Vecz;
+
+		//Sink処理 めり込んだ力の中でもっとも外に出るまでに労力のかからない(距離が短い方向を採用する)
+		float Sink_[3] = { abs(abs(Vecx) - (getRadius() + aabb.hl.x)),
+			abs(abs(Vecy) - (getRadius() + aabb.hl.y)),
+			abs(abs(Vecz) - (getRadius() + aabb.hl.z)) };
+		//0 :X 1:Y 2:Z
+		D3DXVECTOR3 s_vec = { 0, 0, 0 };
+		int min = 0;
+		if (Sink_[0] > Sink_[1])
+			min = 1;
+		else
+			min = 0;
+
+		if (Sink_[2] < Sink_[min])
+			min = 2;
+
+		switch (min){
+		case 0:
+			s_vec = { SIGN(abs(Vecx) - (getRadius() + aabb.hl.x))*Sink_[0], 0, 0 };
+			break;
+		case 1:
+			s_vec = { 0, SIGN(abs(Vecy) - (getRadius() + aabb.hl.y))*Sink_[1], 0 };
+			break;
+		case 2:
+			s_vec = { 0, 0, SIGN(abs(Vecz) - (getRadius() + aabb.hl.z))*Sink_[2] };
+			break;
+		default:
+			s_vec = { Sink_[0], Sink_[1], Sink_[2] };
+			break;
+		}
+		//最小のめり込み距離をベクトルで返す
+
+	
 		D3DXVECTOR3 V = { x, y, z };//AABBの面にむかうベクトル
+		if (D3DXVec3Length(&V) == 0){
+			V = s_vec;
+		}
 		//D3DXVECTOR3 V_e = { (abs(x)>0)*SIGN(x)*1.0f, (abs(y)>0)*SIGN(y)*1.0f, (abs(z)>0)*SIGN(z)*1.0f }; //値がある部分を1で
 		D3DXVECTOR3 V_e = { (abs(x)>0)*(-1.0f), (abs(y)>0)*(-1.0f), (abs(z)>0)*(-1.0f) }; //反射部分の値を反転させる
 		float Sink = MinLength - getRadius();
@@ -135,7 +173,7 @@ bool SphereCollider::ToAABB(gameObject &obj, D3DXVECTOR3 &collisionVector){
 			(ref.y)*abs(Sink),
 			(ref.z)*abs(Sink) };
 		//collisionVector = { collisionVector.x*V_e.x, collisionVector.y*V_e.y, collisionVector.z*V_e.z };
-		bounce(obj, collisionVector,Sinking,ref);
+		bounce(obj, collisionVector,-Sinking,ref);
 		return true;
 	}
 	return false;

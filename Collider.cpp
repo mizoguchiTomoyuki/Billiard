@@ -36,11 +36,9 @@ void Collider::draw(){
 void Collider::bounce(gameObject &obj, D3DXVECTOR3 &collisionVector, D3DXVECTOR3 Sinking, D3DXVECTOR3 ref)
 {
 	if (obj.getCollider()->getTrigger() || getTrigger()){
-		isCollide = false;
 		return;
 	}
 
-	isCollide = true;
 	float e = 1.0f;
 	D3DXVECTOR3 Vdiff = collisionVector - obj.getVelocity(); //相手側の速度ベクトルから自分側の速度ベクトルを引くことで反射されるべく方向を出す。
 	D3DXVECTOR3 cUV; //衝突単位ベクトル(collisionVectorは各collide関数から常に帰ってきている)
@@ -53,7 +51,7 @@ void Collider::bounce(gameObject &obj, D3DXVECTOR3 &collisionVector, D3DXVECTOR3
 	//エンティティがすでに離れる方向に動いている場合は、bounceが
 	//前に呼び出されたものの、衝突がまだ続いている状態です。
 	//エンティティを、collisionVectorに沿って離れる方向に移動
-	if (cUVdotVdiff >  0) //エンティティ同士が離れる方向に動いている
+	if (cUVdotVdiff >=  0) //エンティティ同士が離れる方向に動いている
 	{
 		//Sinkingを使って埋め込まれている反対方向分ずらす。Sinkingは離れる方向のベクトルにする
 		if (!Freeze)

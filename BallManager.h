@@ -6,6 +6,7 @@
 #include "SScore.h"
 #include "SLogo.h"
 #include "SINFO.h"
+class Audio;
 #define SHOOTCYCLE 1.0f //1秒間隔でパワーを変更
 //ボールの管理を行うクラスボールの生成、手玉の管理などを行う
 //ゲームのルール部分を担当
@@ -46,6 +47,7 @@ protected:
 	SRing* sring;
 	SLogo* slogo;
 	SInfo* INFO[BMNS::TUTORIAL::TEND];
+	Audio* audio; //いちいち参照するのはされなのでポインタをもつ
 	bool resetflag;
 	int targetBall;
 	int AllScore;
@@ -70,6 +72,8 @@ public:
 	bool StartUp();
 	void SetTutorial(BMNS::TUTORIAL t);
 	bool GameOver();
+	bool CheckBallCollide();
 };
 
+#include "Audio.h"
 #endif

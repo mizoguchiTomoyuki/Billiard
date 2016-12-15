@@ -56,6 +56,17 @@ const char BALL_MESH[] = "XData\\myball.x";
 const char SHADOW_MESH[] = "XData\\shadow.x";
 const char NINEBALL_TEXTURE[] = "XData";
 const char CUBE_MESH[] = "XData\\Cube2.x";
+const char WAVE_BANK[] = "audio\\Win\\WaveBank.xwb";
+const char SOUND_BANK[] = "audio\\Win\\SoundBank.xsb";
+
+const char SE_CHARGE[] = "B_Charge";
+const char SE_RESTART[] = "B_Restart";
+const char SE_POINTDOWN[] = "B_PointDown";
+const char SE_POINT[] = "B_point";
+const char SE_SHOOT[] = "B_Shoot";
+const char SE_SPOT[] = "B_Spot";
+const char SE_TARGET[] = "B_Target";
+const char SE_REFRECT[] = "B_Refrect";
 
 const bool FULLSCREEN = false;              // windowed or fullscreen
 const UINT  GAME_WIDTH = 1280;              // width of game in pixels

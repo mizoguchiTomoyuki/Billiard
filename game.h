@@ -9,7 +9,7 @@
 #include "constants.h"
 #include "input.h"
 #include "gameError.h"
-//#include "audio.h"
+#include "audio.h"
 #include "textdx.h"
 #include "console.h"
 #include "CreateConsole.h"
@@ -28,7 +28,7 @@ class Game
 protected:
 	Graphics *graphics;
 	Input *input;
-	//Audio *audio;
+	Audio *audio;
 	HWND hwnd; //ウインドウのハンドル
 	HRESULT hr;
 	LARGE_INTEGER timeStart; //パフォーマンスカウンターの開始値
@@ -96,7 +96,7 @@ public:
 	Input* getInput(){ return input; }
 
 	//Audioへのポインタを返す
-//	Audio* getAudio(){ return audio; }
+	Audio* getAudio(){ return audio; }
 
 	//ゲームを終了
 	void exitGame(){ PostMessage(hwnd, WM_DESTROY, 0, 0); }

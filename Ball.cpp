@@ -76,8 +76,11 @@ void Ball::collision(){
 	int mSize = gameObjectFactory::Instance().Getsize();
 	for (int i = 0; i < mSize; i++){
 		if (obj->pointer->getisCollide()){
+
 			if (obj->pointer->getELEMID() != getELEMID())
 				getCollider()->collide(*obj->pointer, velocity);
+
+
 			if (getCollider()->getisCollide() && obj->pointer->getCollider()->getColliderTag() == ColliderNS::COL_TAG::DARKHOLE){
 				D3DXVECTOR3 length = transform.position - obj->pointer->getPosition();
 				if (D3DXVec3Length(&length) < 0.8f){

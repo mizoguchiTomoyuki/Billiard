@@ -114,9 +114,9 @@ void Game::initialize(HWND hw)
 	console->initialize(graphics, input);
 	console->print("---Console---");
 	console->setActive(true);
-	//audio = new Ausio();
+	audio = new Audio();
 	//サウンドファイルが定義されている場合
-/*	if (*WAVE_BANK != '\0' && *SOUND_BANK != '\0')
+	if (*WAVE_BANK != '\0' && *SOUND_BANK != '\0')
 	{
 		if (FAILED(hr = audio->initialize()))
 		{
@@ -128,7 +128,7 @@ void Game::initialize(HWND hw)
 				throw(GameError(gameErrorNS::FATAL_ERROR,
 				"Failed to initialize sound system."));
 		}
-	}*/
+	}
 	//高分解能タイマーの準備を試みる
 	if (QueryPerformanceFrequency(&timerFreq) == false)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing high resolution timer"));
@@ -305,7 +305,7 @@ void Game::run(HWND hwnd)
 	/*	input->clear(inputNS::KEYS_DOWN);
 	
 	input->clear(inputNS::TEXT_IN);*/
-	//audio->run();
+	audio->run();
 }
 
 void Game::releaseAll()
@@ -330,7 +330,7 @@ void Game::deleteAll()
 	releaseAll();               // call onLostDevice() for every graphics item
 	SAFE_DELETE(graphics);
 	SAFE_DELETE(input);
-	//SAFE_DELETE(audio);
+	SAFE_DELETE(audio);
 	SAFE_DELETE(console);
 	SAFE_DELETE(c_console);
 	initialized = false;

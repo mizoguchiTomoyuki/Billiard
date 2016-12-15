@@ -80,6 +80,7 @@ bool BallManager::initialize(){
 	score->setScale(1.0f);
 	score->isVisible(true);
 	score->setString(std::to_string(AllScore));
+	audio = GameSceneManager::Instance().GetGameptr()->getAudio();
 	return true;
 
 }
@@ -93,6 +94,7 @@ void BallManager::update(){
 			if (StartUp()){
 				INFO[BMNS::TUTORIAL::SCORE]->isVisible(true);
 				state = BMNS::TARGETBALL;
+				audio->playCue(SE_SHOOT);
 			}
 
 			break;
@@ -104,6 +106,7 @@ void BallManager::update(){
 			break;
 		case BMNS::TARGETBALL_END:
 			if (!LClicked){
+				audio->playCue(SE_TARGET);
 				SetTutorial(BMNS::TUTORIAL::SHOOT);
 				state = BMNS::SHOOTBALL;
 				shootpower = 0;
@@ -111,6 +114,7 @@ void BallManager::update(){
 			break;
 		case BMNS::SHOOTBALL:
 			if (ShootBall()){
+				audio->playCue(SE_SHOOT);
 				state = BMNS::WAITSTOPBALL;
 
 			}
@@ -147,6 +151,7 @@ void BallManager::update(){
 				INFO[BMNS::TUTORIAL::GAMEOVER_LOGO]->isVisible(false);
 				state = BMNS::START;
 
+				audio->playCue(SE_RESTART);
 				slogo->isVisible(true);
 			}
 			break;
@@ -270,6 +275,10 @@ bool BallManager::ShootBall(){
 			float Power = pow*cos(shootpower*2*PI)+pow;//最終的な力(sin変異)
 			arrow->PowerColor(Power);
 		}
+		else{
+
+			audio->playCue(SE_CHARGE);
+		}
 
 	}
 	else{
@@ -353,6 +362,8 @@ void BallManager::CheckBalls(){
 				ScoreEffect(screenpos, s,true);
 				AllScore += Point;
 				score->setString(std::to_string(AllScore));
+				audio->playCue(SE_POINT);
+				audio->playCue(SE_SPOT);
 			}
 			else{
 				D3DXVECTOR3 spos; //スクリーン上の位置
@@ -362,6 +373,8 @@ void BallManager::CheckBalls(){
 				ScoreEffect(screenpos, "-100",false);
 				AllScore -= 100;
 				score->setString(std::to_string(AllScore));
+				audio->playCue(SE_SPOT);
+				audio->playCue(SE_POINTDOWN);
 
 			}
 		}
@@ -384,6 +397,8 @@ void BallManager::CheckBalls(){
 		score->setString(std::to_string(AllScore));
 		resetflag = true;
 		arrow->isVisible(false);
+		audio->playCue(SE_SPOT);
+		audio->playCue(SE_POINTDOWN);
 	}
 	if (Complete){
 		state = BMNS::GAME_STATE::GAMEOVER;
@@ -534,4 +549,18 @@ bool BallManager::GameOver(){
 
 	}
 	return false;
+}
+//もしショット場面になっても衝突を続けているものがいたら
+bool BallManager::CheckBallCollide(){
+	bool Complete = true;
+	for (int i = 0; i < 9; i++){
+		Ball* ball = (Ball*)gameObjectFactory::Instance().GetElem(balls[i]);
+		Complete &= !ball->getCollider()->getisCollide(); //すべてfalseならばok
+	}
+
+	Ball* ball = (Ball*)gameObjectFactory::Instance().GetElem(_myball);
+	Complete &= !ball->getCollider()->getisCollide(); //すべてfalseならばok
+
+	return Complete; //すべてfalseならばtrueが帰るはず。
+
 }
